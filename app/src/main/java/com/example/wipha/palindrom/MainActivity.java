@@ -23,12 +23,26 @@ public class MainActivity extends AppCompatActivity {
                 EditText inputEditText = findViewById(R.id.inputEditText);
                 TextView resultTextView = findViewById(R.id.resultTextView);
 
-               String input = inputEditText.getText().toString();
+                String input = inputEditText.getText().toString();
+                boolean constraints = true;
 
-                if(isPalindrom(input)){
-                    resultTextView.setText("Das Wort "+input+" ist ein Palindrom!");
-                }else{
-                    resultTextView.setText("Das Wort "+input+" ist kein Palindrom!");
+                if(input.isEmpty()){
+                    resultTextView.setText("Geben Sie bitte ein String ein.");
+                    constraints = false;
+                }else if(input.length()<5){
+                    resultTextView.setText("Der String muss mindestens 5 Zeichen haben.");
+                    constraints = false;
+                }else if(!regexForString(input)){
+                    resultTextView.setText("Der String darf nur aus Buchstaben und Zahlen bestehen.");
+                    constraints =false;
+                }
+
+                if(constraints) {
+                    if (isPalindrom(input)) {
+                        resultTextView.setText("Der String " + input + " ist ein Palindrom!");
+                    } else {
+                        resultTextView.setText("Der String " + input + " ist kein Palindrom!");
+                    }
                 }
 
 
@@ -38,7 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     // check if the given string is a palindrom ignoring lower and upper case respectively
-    public static boolean isPalindrom(String str){
+    public static boolean isPalindrom(String str) {
         return str.equalsIgnoreCase(new StringBuilder(str).reverse().toString());
     }
+
+    public static boolean regexForString(String str){
+        return str.matches("[A-Za-z0-9]+");
+    }
+
 }
