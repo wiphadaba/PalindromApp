@@ -22,18 +22,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText inputEditText = findViewById(R.id.inputEditText);
                 TextView resultTextView = findViewById(R.id.resultTextView);
+                TextView messageTextView = findViewById(R.id.messageTextView);
 
+                resultTextView.setText("");
+                messageTextView.setText("");
                 String input = inputEditText.getText().toString();
                 boolean constraints = true;
 
                 if(input.isEmpty()){
-                    resultTextView.setText("Geben Sie bitte ein String ein.");
+                    messageTextView.setText("Geben Sie bitte ein String ein.");
                     constraints = false;
                 }else if(input.length()<5){
-                    resultTextView.setText("Der String muss mindestens 5 Zeichen haben.");
+                    messageTextView.setText("Der String muss mindestens 5 Zeichen haben.");
                     constraints = false;
                 }else if(!regexForString(input)){
-                    resultTextView.setText("Der String darf nur aus Buchstaben und Zahlen bestehen.");
+                    messageTextView.setText("Der String darf nur aus Buchstaben und Zahlen bestehen.");
                     constraints =false;
                 }
 
